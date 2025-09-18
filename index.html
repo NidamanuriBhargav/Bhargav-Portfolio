@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nidamanuri Bhargav - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Dark Slate Blue */
+            color: #e2e8f0; /* Light Slate Gray for text */
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Bubble Background */
+        .bubble-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(251, 191, 36, 0.1));
+            animation: float 25s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-duration: 20s; }
+        .bubble:nth-child(2) { width: 120px; height: 120px; left: 20%; animation-duration: 30s; animation-delay: -5s; }
+        .bubble:nth-child(3) { width: 60px; height: 60px; left: 35%; animation-duration: 40s; }
+        .bubble:nth-child(4) { width: 150px; height: 150px; left: 50%; animation-duration: 22s; animation-delay: -10s; }
+        .bubble:nth-child(5) { width: 90px; height: 90px; left: 65%; animation-duration: 35s; }
+        .bubble:nth-child(6) { width: 110px; height: 110px; left: 80%; animation-duration: 28s; animation-delay: -15s; }
+        .bubble:nth-child(7) { width: 70px; height: 70px; left: 90%; animation-duration: 32s; }
+
+        @keyframes float {
+            0% {
+                bottom: -150px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 100vh;
+                transform: translateX(-50px);
+            }
+        }
+
+        /* Custom gradient for titles */
+        .gradient-text {
+            background: linear-gradient(to right, #818cf8, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Animation for elements fading in on scroll */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+        }
+
+        .animate-on-scroll.is-visible {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        /* Tooltip styles */
+        .skill-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .group:hover .skill-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <div class="bubble-background">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="bg-slate-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-lg shadow-slate-900/20">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="#home" class="text-2xl font-bold gradient-text">NB</a>
+                <span class="text-slate-300 font-semibold hidden sm:block">Personal Portfolio</span>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-slate-300 hover:text-indigo-400 transition duration-300">Home</a>
+                <a href="#about" class="text-slate-300 hover:text-indigo-400 transition duration-300">About</a>
+                <a href="#education" class="text-slate-300 hover:text-indigo-400 transition duration-300">Education</a>
+                <a href="#skills" class="text-slate-300 hover:text-indigo-400 transition duration-300">Skills</a>
+                <a href="#projects" class="text-slate-300 hover:text-indigo-400 transition duration-300">Projects</a>
+                <a href="#internships" class="text-slate-300 hover:text-indigo-400 transition duration-300">Internships</a>
+                <a href="#contact" class="text-slate-300 hover:text-indigo-400 transition duration-300">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95">
+            <a href="#home" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">Home</a>
+            <a href="#about" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">About</a>
+            <a href="#education" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">Education</a>
+            <a href="#skills" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">Skills</a>
+            <a href="#projects" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">Projects</a>
+            <a href="#internships" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">Internships</a>
+            <a href="#contact" class="block py-2 px-6 text-sm text-slate-300 hover:bg-slate-800">Contact</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen flex items-center bg-transparent overflow-hidden">
+            <div class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center">
+                <!-- Left Side: Profile Picture -->
+                <div class="md:w-1/3 flex justify-center mb-10 md:mb-0">
+                     <div class="relative group animate-on-scroll">
+                         <div class="absolute -inset-1.5 bg-sky-400 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                         <img src="https://i.postimg.cc/HWrtCW8J/IMG-20250222-084959.jpg" alt="Nidamanuri Bhargav" class="relative rounded-3xl shadow-2xl w-64 h-64 md:w-80 md:h-80 object-cover">
+                     </div>
+                </div>
+                <!-- Right Side: Name and Role -->
+                <div class="md:w-2/3 text-center md:text-left md:pl-16 animate-on-scroll" style="animation-delay: 200ms;">
+                    <h1 class="text-4xl md:text-6xl font-bold text-slate-100 mb-2">Nidamanuri Bhargav</h1>
+                    <p class="text-xl md:text-2xl font-light text-indigo-400 mb-8">Artificial Intelligence and Data Science</p>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="https://docs.google.com/document/d/1_W4TyYIVCRl-2RKh7ROIyLM1Ugc5wZz_/edit?usp=sharing&ouid=111676127388705373073&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">Resume</a>
+                        <a href="#contact" class="bg-slate-700 text-slate-200 font-semibold py-3 px-6 rounded-lg shadow-lg hover:bg-slate-600 transition duration-300 transform hover:scale-105">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-slate-800/50">
+            <div class="container mx-auto px-6">
+                <div class="animate-on-scroll">
+                    <h2 class="text-4xl font-bold text-center mb-12">About <span class="gradient-text">Me</span></h2>
+                    <div class="bg-slate-900 p-8 md:p-12 rounded-2xl shadow-xl max-w-4xl mx-auto">
+                        <p class="text-lg text-slate-300 mb-6 leading-relaxed">
+                            Hello! I'm Nidamanuri Bhargav, a passionate and driven third-year student pursuing a degree in <span class="font-semibold text-indigo-400">Artificial Intelligence and Data Science</span> at Ramachandra College of Engineering. With a current CGPA of 8.19, I have a strong foundation in computer science and a keen interest in leveraging data to drive insightful decisions.
+                        </p>
+                        <p class="text-lg text-slate-300 mb-6 leading-relaxed">
+                            I am particularly interested in the <span class="font-semibold text-indigo-400">Data Analyst</span> role, where I can apply my analytical skills and knowledge of tools like SQL, Python, and Tableau to uncover trends and patterns. I enjoy the process of transforming raw data into meaningful stories and have worked on several projects that reflect this passion.
+                        </p>
+                        <div class="mt-8 text-center">
+                             <a href="https://drive.google.com/drive/folders/1Ra5bYBBKl8S8hErJ54c29trEbyCkax33?usp=sharing" target="_blank" rel="noopener noreferrer" class="bg-amber-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:bg-amber-700 transition duration-300 transform hover:scale-105">View Certificates</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Educational Background Section -->
+        <section id="education" class="py-20 bg-transparent">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">Educational <span class="gradient-text">Background</span></h2>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- 10th Class Card -->
+                    <div class="bg-slate-800/50 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll">
+                        <h3 class="text-2xl font-semibold mb-4 text-indigo-400">10th Class</h3>
+                        <ul class="space-y-3 text-slate-300">
+                            <li><strong>School:</strong> Sri Chaitanya School, Nandigama</li>
+                            <li><strong>Grade:</strong> 10.0 points</li>
+                            <li><strong>Year:</strong> 2021</li>
+                        </ul>
+                    </div>
+                    <!-- Intermediate Card -->
+                    <div class="bg-slate-800/50 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="animation-delay: 200ms;">
+                        <h3 class="text-2xl font-semibold mb-4 text-amber-400">Intermediate</h3>
+                        <ul class="space-y-3 text-slate-300">
+                           <li><strong>College:</strong> Chaitanya College, Nandigama</li>
+                           <li><strong>Course:</strong> MPC</li>
+                           <li><strong>Grade:</strong> 68.9% [B-Grade]</li>
+                           <li><strong>Year:</strong> 2023</li>
+                        </ul>
+                    </div>
+                    <!-- B. Tech Card -->
+                    <div class="bg-slate-800/50 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="animation-delay: 400ms;">
+                        <h3 class="text-2xl font-semibold mb-4 text-indigo-400">B. Tech</h3>
+                        <ul class="space-y-3 text-slate-300">
+                            <li><strong>College:</strong> Ramachandra College of Engineering</li>
+                            <li><strong>Branch:</strong> AI & Data Science</li>
+                            <li><strong>CGPA:</strong> 8.19 (Present)</li>
+                            <li><strong>Years:</strong> 2023-2027</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-slate-800/50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">My <span class="gradient-text">Skills</span></h2>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Technical Skills Card -->
+                    <div class="bg-slate-900 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll">
+                        <h3 class="text-2xl font-semibold mb-4 text-indigo-400">Technical Skills</h3>
+                        <ul class="space-y-4 text-slate-300">
+                            <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">C
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Solid understanding of fundamental concepts and syntax through academic coursework.</div>
+                                </span>
+                            </li>
+                             <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Python
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Comfortable using Python with libraries like Pandas for data manipulation and analysis.</div>
+                                </span>
+                            </li>
+                             <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">SQL
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Skilled in writing queries to retrieve, manipulate, and analyze data from relational databases.</div>
+                                </span>
+                            </li>
+                             <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Java
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Good grasp of Object-Oriented principles, including inheritance and polymorphism, applied in academic projects.</div>
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">HTML
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Proficient in creating structured and responsive web pages.</div>
+                                </span>
+                            </li>
+                             <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">CSS
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Proficient in creating well-styled and responsive web pages.</div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Tools Card -->
+                    <div class="bg-slate-900 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll">
+                        <h3 class="text-2xl font-semibold mb-4 text-amber-400">Tools</h3>
+                        <ul class="space-y-4 text-slate-300">
+                            <li class="flex items-center">
+                                <span class="relative group bg-amber-900/50 text-amber-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Excel
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Advanced proficiency in using spreadsheets for data organization, analysis, and visualization.</div>
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="relative group bg-amber-900/50 text-amber-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Tableau
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Experienced in using Tableau to create interactive dashboards and compelling data stories.</div>
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="relative group bg-amber-900/50 text-amber-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Power BI
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Familiar with creating interactive reports and dashboards using Power BI.</div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Soft Skills Card -->
+                    <div class="bg-slate-900 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll">
+                        <h3 class="text-2xl font-semibold mb-4 text-indigo-400">Soft Skills</h3>
+                        <ul class="space-y-4 text-slate-300">
+                            <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Communication
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Able to clearly convey complex ideas to both technical and non-technical audiences.</div>
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Teamwork
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">A collaborative team player, effective in working with others to achieve common goals.</div>
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Time Management
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Skilled in prioritizing tasks and managing deadlines effectively to ensure project success.</div>
+                                </span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="relative group bg-indigo-900/50 text-indigo-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full cursor-pointer">Creativity & Innovation
+                                    <div class="skill-tooltip absolute left-full ml-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Adept at finding new and effective solutions to complex problems.</div>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-transparent">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">My <span class="gradient-text">Projects</span></h2>
+                <div class="max-w-2xl mx-auto">
+                    <!-- Project Card -->
+                    <div class="bg-slate-800/50 rounded-2xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300 animate-on-scroll hover:shadow-xl hover:shadow-indigo-500/20">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2 text-slate-100">Visualizing Housing Market Trends</h3>
+                            <p class="text-slate-300 mb-4 leading-relaxed">
+                                This project for ABC Company addresses challenges in understanding factors influencing house prices. By analyzing comprehensive housing data—including sales by years since renovation, age distribution by features, and the impact of renovations—the goal is to uncover key insights. Using Tableau, the objective is to visualize patterns to inform strategic decisions, optimize pricing, and enhance market competitiveness for real estate analysts, marketing teams, and executives.
+                            </p>
+                            <div class="mt-6 flex justify-between items-center">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-700 text-slate-300 text-xs font-medium px-2.5 py-0.5 rounded-full">Tableau</span>
+                                </div>
+                                <a href="https://github.com/NidamanuriBhargav/Visualizing-Housing-Market-Trends-An-Analysis-of-Sale-Prices-and-Features-usingTableau" target="_blank" rel="noopener noreferrer" class="relative group text-slate-400 hover:text-indigo-400 transition-transform duration-300 hover:scale-110">
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                    <div class="skill-tooltip absolute right-full mr-2 top-1/2 -translate-y-1/2 w-max max-w-xs bg-slate-700 text-white text-sm rounded-lg p-2 pointer-events-none z-10">Project Repository</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Internships Section -->
+        <section id="internships" class="py-20 bg-slate-800/50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">Internship <span class="gradient-text">Experience</span></h2>
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <!-- Internship Card -->
+                    <div class="bg-slate-900 p-8 rounded-2xl shadow-lg hover:shadow-xl hover:shadow-amber-500/20 hover:-translate-y-2 transition-all duration-300 animate-on-scroll">
+                        <h3 class="text-2xl font-semibold mb-2 text-indigo-400">Data Analyst</h3>
+                        <p class="text-md text-slate-400 mb-4">APSCHE Smart Bridge | 1 Month | Online</p>
+                        <p class="text-slate-300 mb-6 leading-relaxed">
+                            During this internship, I learned the importance of data visualization and how to use tools like Tableau to uncover hidden insights from large datasets. I gained hands-on experience by completing the Housing Trend project, which solidified my understanding of how to visualize data to drive business decisions.
+                        </p>
+                        <a href="https://drive.google.com/file/d/1Eb0ZuXDgyaosk7EHYcydZ4LooPiZgo0D/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="bg-amber-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-amber-700 transition duration-300">View Certificate</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-transparent">
+            <div class="container mx-auto px-6 animate-on-scroll">
+                <h2 class="text-4xl font-bold text-center mb-4">Contact <span class="gradient-text">Me</span></h2>
+                <p class="text-center text-slate-300 mb-10">Have a question or want to work together? Let's connect!</p>
+                <div class="bg-slate-800/50 p-8 md:p-12 rounded-2xl shadow-2xl max-w-2xl mx-auto">
+                    <form id="contact-form">
+                        <p class="text-sm text-slate-400 mb-6 font-bold"><span class="text-red-500">*</span> represents a required field.</p>
+                        <div class="mb-6">
+                            <label for="name" class="block text-slate-300 font-semibold mb-2">Full Name<span class="text-red-500">*</span></label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 bg-slate-700 border border-slate-600 text-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-slate-300 font-semibold mb-2">Email-id<span class="text-red-500">*</span></label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 bg-slate-700 border border-slate-600 text-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="phone" class="block text-slate-300 font-semibold mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 bg-slate-700 border border-slate-600 text-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                        </div>
+                        <div class="mb-6">
+                            <label for="comments" class="block text-slate-300 font-semibold mb-2">Comments</label>
+                            <textarea id="comments" name="comments" rows="4" class="w-full px-4 py-2 bg-slate-700 border border-slate-600 text-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 transform hover:scale-105">Send Message</button>
+                        </div>
+                    </form>
+                    <div id="form-status" class="text-center mt-4 font-semibold"></div>
+                    <div class="text-center mt-10">
+                        <p class="text-slate-300 mb-4">You can also find me here:</p>
+                        <div class="flex justify-center space-x-6">
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bhargavnidamanuri@gmail.com" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-400 transition-transform duration-300 hover:scale-110">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nidamanuribhargav?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-400 transition-transform duration-300 hover:scale-110">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                            </a>
+                            <a href="https://github.com/NidamanuriBhargav" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-400 transition-transform duration-300 hover:scale-110">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Nidamanuri Bhargav. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        var mobileMenuButton = document.getElementById('mobile-menu-button');
+        var mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        var mobileMenuLinks = mobileMenu.getElementsByTagName('a');
+        for (var i = 0; i < mobileMenuLinks.length; i++) {
+            mobileMenuLinks[i].addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+
+        // JavaScript for Contact Form
+        var form = document.getElementById('contact-form');
+        
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            var data = new FormData(event.target);
+            var formStatus = document.getElementById('form-status');
+            
+            formStatus.innerHTML = 'Sending...';
+            formStatus.className = "text-center mt-4 font-semibold text-slate-400";
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://formspree.io/f/xgvzkgej');
+            xhr.setRequestHeader('Accept', 'application/json');
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState !== XMLHttpRequest.DONE) return;
+                
+                if (xhr.status === 200) {
+                    formStatus.innerHTML = "Thanks for your message!";
+                    formStatus.className = "text-center mt-4 font-semibold text-green-400";
+                    form.reset();
+                } else {
+                    try {
+                        var responseData = JSON.parse(xhr.responseText);
+                        if (responseData && responseData.hasOwnProperty('errors')) {
+                            formStatus.innerHTML = responseData.errors.map(function(error) { return error.message; }).join(", ");
+                        } else {
+                            formStatus.innerHTML = "Oops! There was a problem submitting your form.";
+                        }
+                    } catch (e) {
+                         formStatus.innerHTML = "Oops! There was a problem reading the server response.";
+                    }
+                    formStatus.className = "text-center mt-4 font-semibold text-red-400";
+                }
+            };
+            
+            xhr.onerror = function() {
+                formStatus.innerHTML = "Oops! There was a network problem submitting your form.";
+                formStatus.className = "text-center mt-4 font-semibold text-red-400";
+            };
+            
+            xhr.send(data);
+        }
+        form.addEventListener("submit", handleFormSubmit);
+
+        // JavaScript for scroll animations
+        var scrollElements = document.querySelectorAll(".animate-on-scroll");
+
+        var elementInView = function(el, dividend) {
+            dividend = dividend || 1;
+            var elementTop = el.getBoundingClientRect().top;
+
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        var displayScrollElement = function(element) {
+            element.classList.add("is-visible");
+        };
+
+        var hideScrollElement = function(element) {
+            element.classList.remove("is-visible");
+        };
+
+        var handleScrollAnimation = function() {
+            scrollElements.forEach(function(el) {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
+                }
+            });
+        }
+
+        window.addEventListener("scroll", function() { 
+            handleScrollAnimation();
+        });
+        
+        // Trigger animation for elements already in view on page load
+        handleScrollAnimation();
+
+        // Prevent placeholder links from jumping to top
+        var placeholderLinks = document.querySelectorAll('a[href="#"]');
+        placeholderLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+            });
+        });
+
+    </script>
+
+</body>
+</html>
